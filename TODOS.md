@@ -1,5 +1,29 @@
 # TODOS
 
+## Test infrastructure
+
+### P0: Rebaseline parity-suite (v1.44.1) — stale, 5 pre-existing failures
+
+**What:** `test/parity-suite.test.ts` checks every skill's SKILL.md size against
+the frozen `test/fixtures/parity-baseline-v1.44.1.json`. Five planning skills now
+exceed the 1.05x ceiling: `plan-ceo-review` (1.052), `plan-eng-review` (1.062),
+`plan-design-review` (1.068), `investigate` (1.053), `office-hours` (1.065).
+
+**Why:** These grew during the brain-aware-planning releases (v1.49–v1.52) which
+added the `BRAIN_PREFLIGHT`/`BRAIN_CACHE_REFRESH`/`BRAIN_WRITE_BACK` resolvers to
+those skills. The v1.44.1 baseline was never regenerated, so it's four releases
+stale. The failures are pre-existing on `origin/main` (proven: they fail with the
+redaction branch absent). The active size gate (`skill-size-budget`, v1.47 baseline)
+passes, and parity-suite is not in CI's `test:gate`, so nothing is blocked — but the
+local `bun test` shows red until rebaselined.
+
+**How to start:** Either regenerate the fixture to a current baseline
+(`bun run scripts/capture-baseline.ts <tag>` and point the test at it), or bump the
+per-skill ratio for the planning skills. Decide whether v1.44.1 should be retired in
+favor of the v1.47 baseline the size-budget test already uses.
+
+**Depends on:** nothing. Standalone.
+
 ## gbrowser memory follow-ups (filed via /plan-eng-review + /codex on the v1.49 leak-fix PR)
 
 These four items came out of the memory-leak investigation that shipped

@@ -17,6 +17,9 @@ hosts/
 ├── slate.ts         # Slate (Random Labs)
 ├── cursor.ts        # Cursor
 ├── openclaw.ts      # OpenClaw (hybrid: config + adapter)
+├── hermes.ts        # Hermes
+├── gbrain.ts        # GBrain
+├── grok.ts          # Grok (xAI Grok Build TUI)
 └── index.ts         # Registry: imports all, derives Host type
 ```
 

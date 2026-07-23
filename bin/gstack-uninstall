@@ -12,6 +12,7 @@
 #   ~/.codex/skills/gstack*       — Codex skill install + per-skill symlinks
 #   ~/.factory/skills/gstack*     — Factory Droid skill install + per-skill symlinks
 #   ~/.kiro/skills/gstack*        — Kiro skill install + per-skill symlinks
+#   ~/.grok/skills/gstack*        — Grok skill install + per-skill symlinks
 #   ~/.gstack/                    — global state (config, analytics, sessions, projects,
 #                                   repos, installation-id, browse error logs)
 #   .claude/skills/gstack*        — project-local skill install (--local installs)
@@ -66,6 +67,7 @@ if [ "$FORCE" -eq 0 ]; then
   [ -d "$HOME/.codex/skills" ] && echo "  ~/.codex/skills/gstack*"
   [ -d "$HOME/.factory/skills" ] && echo "  ~/.factory/skills/gstack*"
   [ -d "$HOME/.kiro/skills" ] && echo "  ~/.kiro/skills/gstack*"
+  [ -d "$HOME/.grok/skills" ] && ls -d "$HOME/.grok/skills"/gstack* >/dev/null 2>&1 && echo "  ~/.grok/skills/gstack*"
   [ "$KEEP_STATE" -eq 0 ] && [ -d "$STATE_DIR" ] && echo "  $STATE_DIR"
 
   if [ -n "$_GIT_ROOT" ]; then
@@ -191,6 +193,17 @@ if [ -d "$KIRO_SKILLS" ]; then
   done
 fi
 
+# ─── Remove Grok skills ─────────────────────────────────────
+# Only remove gstack* under ~/.grok/skills — never the rest of ~/.grok/
+GROK_SKILLS="$HOME/.grok/skills"
+if [ -d "$GROK_SKILLS" ]; then
+  for _ITEM in "$GROK_SKILLS"/gstack*; do
+    [ -e "$_ITEM" ] || [ -L "$_ITEM" ] || continue
+    rm -rf "$_ITEM"
+    REMOVED+=("grok/$(basename "$_ITEM")")
+  done
+fi
+
 # ─── Remove per-project .agents/ sidecar ─────────────────────
 if [ -n "$_GIT_ROOT" ] && [ -d "$_GIT_ROOT/.agents/skills" ]; then
   for _ITEM in "$_GIT_ROOT/.agents/skills"/gstack*; do
@@ -213,6 +226,18 @@ if [ -n "$_GIT_ROOT" ] && [ -d "$_GIT_ROOT/.factory/skills" ]; then
 
   rmdir "$_GIT_ROOT/.factory/skills" 2>/dev/null || true
   rmdir "$_GIT_ROOT/.factory" 2>/dev/null || true
+fi
+
+# ─── Remove per-project .grok/ gstack skills only ────────────
+# Do not delete the whole .grok/ tree — projects keep config.toml etc.
+if [ -n "$_GIT_ROOT" ] && [ -d "$_GIT_ROOT/.grok/skills" ]; then
+  for _ITEM in "$_GIT_ROOT/.grok/skills"/gstack*; do
+    [ -e "$_ITEM" ] || [ -L "$_ITEM" ] || continue
+    rm -rf "$_ITEM"
+    REMOVED+=("grok/$(basename "$_ITEM")")
+  done
+
+  rmdir "$_GIT_ROOT/.grok/skills" 2>/dev/null || true
 fi
 
 # ─── Remove per-project state ───────────────────────────────

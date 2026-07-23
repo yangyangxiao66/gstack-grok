@@ -1,6 +1,7 @@
 # gstack
 
-> **Published fork:** [yangyangxiao66/gstack-grok](https://github.com/yangyangxiao66/gstack-grok) — based on [garrytan/gstack](https://github.com/garrytan/gstack) with first-class **Grok (xAI)** support (`./setup --host grok` → `~/.grok/skills/gstack-*`).
+> **Published fork:** [yangyangxiao66/gstack-grok](https://github.com/yangyangxiao66/gstack-grok) — based on [garrytan/gstack](https://github.com/garrytan/gstack) with first-class **Grok (xAI)** support (`./setup --host grok` → `~/.grok/skills/gstack-*`).  
+> **中文说明：** [README-cn.md](./README-cn.md)
 
 > "I don't think I've typed like a line of code probably since December, basically, which is an extremely large change." — [Andrej Karpathy](https://fortune.com/2026/03/21/andrej-karpathy-openai-cofounder-ai-agents-coding-state-of-psychosis-openclaw/), No Priors podcast, March 2026
 

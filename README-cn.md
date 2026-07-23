@@ -1,5 +1,15 @@
 # gstack（中文说明）
 
+## 致谢
+
+本项目基于 [**garrytan/gstack**](https://github.com/garrytan/gstack)（作者 [Garry Tan](https://x.com/garrytan)）。  
+感谢上游开源贡献：技能体系、工作流设计、setup / host 架构与主体代码均来自 gstack；本仓在其 MIT 许可下增加 **Grok（xAI）** 宿主适配与中文说明。
+
+若本仓对你有帮助，也请给上游点亮 Star：  
+https://github.com/garrytan/gstack
+
+---
+
 > **本仓库（Grok 适配发布版）**  
 > [https://github.com/yangyangxiao66/gstack-grok](https://github.com/yangyangxiao66/gstack-grok)
 
@@ -219,9 +229,6 @@ cd ~/gstack && git pull && ./setup --host grok
 ---
 
 ## 常见问题
-
-**Q: 和「终端矩阵」是什么关系？**  
-A: 无关。终端矩阵是另一个桌面终端项目；本仓是 **gstack 技能套件**。
 
 **Q: 必须用 Grok 吗？**  
 A: 不必。本仓完整包含上游 gstack，也可用 `./setup --host claude` 等装到其它 Agent。本仓的差异是 **Grok 开箱可用**。
